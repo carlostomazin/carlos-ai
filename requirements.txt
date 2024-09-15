@@ -1,0 +1,15 @@
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cu124
+
+llama-cpp-python[server]==v0.2.90
+pystray
+pillow
+loguru
+pynput
+pyperclip
+customtkinter
+requests
+plyer
+huggingface_hub
+
+# dev
+ipykernel

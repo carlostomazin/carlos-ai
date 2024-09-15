@@ -1,0 +1,25 @@
+{
+  "app_title": "CarlosAI",
+  "screen": {
+    "window": {
+      "width": 800,
+      "height": 600
+    },
+    "icon_path": "assets/icon_chatbot.png",
+    "msg_context": {
+      "default": "Nenhum contexto selecionado",
+      "selected": "Contexto selecionado",
+      "delete": "Excluir contexto"
+    },
+    "msg_loading": "Pensando..."
+  },
+  "model": {
+    "system": "Você é um agente de AI. Seu nome é 'CarlosAI'. Responda de forma amigável e informativa, baseando-se nas informações fornecidas. Responda em português do Brasil, mantendo a resposta concisa e objetiva."
+  },
+  "llama_cpp": {
+    "url": "http://127.0.0.1",
+    "port": 8000,
+    "model_path": "../models/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
+    "chat_format": "llama-3"
+  }
+}
