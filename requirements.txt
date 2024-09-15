@@ -10,6 +10,3 @@ customtkinter
 requests
 plyer
 huggingface_hub
-
-# dev
-ipykernel
