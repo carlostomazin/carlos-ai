@@ -1,7 +1,7 @@
 import threading
 
 import customtkinter as ctk
-from llama_server import invoke_stream, check_server_running
+from llama_server import check_server_running, invoke_stream
 from tray_icon import TrayIcon
 from utils import load_config, notify
 
@@ -9,7 +9,6 @@ from utils import load_config, notify
 class Screen:
     def __init__(self):
         self.config = load_config()
-        self.last_response = ""
         self.context = None
         self.janela = None
         self.send_notify = False
@@ -29,7 +28,6 @@ class Screen:
 
         for chunk in invoke_stream(prompt=user_input, context=self.context):
             self.janela.after(0, self.update_response, chunk, False)
-            self.last_response = self.last_response + chunk
 
         self.janela.after(0, self.update_response, "\n\n", True)
 
@@ -42,7 +40,19 @@ class Screen:
 
         if is_final:
             self.input_textbox.delete("1.0", "end")
-            self.btn_copiar.configure(state="normal")
+
+    def limpar_chat(self):
+        self.output_textbox.configure(state="normal")
+        self.output_textbox.delete("1.0", "end")
+        self.output_textbox.configure(state="disabled")
+
+    def limpar_contexto(self):
+        self.context = None
+        self.label_context.configure(
+            text=self.config["screen"]["msg_context"]["default"],
+            text_color="white",
+        )
+        self.btn_delete_context.configure(state="disabled")
 
     def on_closing(self):
         self.janela.withdraw()
@@ -60,20 +70,6 @@ class Screen:
             return
 
         threading.Thread(target=self.get_llama_response, args=(user_input,)).start()
-
-    def copiar(self):
-        if self.last_response:
-            self.janela.clipboard_clear()
-            self.janela.clipboard_append(self.last_response)
-            self.janela.update()
-
-    def limpar_contexto(self):
-        self.context = None
-        self.label_context.configure(
-            text=self.config["screen"]["msg_context"]["default"],
-            text_color="white",
-        )
-        self.btn_delete_context.configure(state="disabled")
 
     def run(self):
         #########################
@@ -94,7 +90,7 @@ class Screen:
         self.janela.protocol("WM_DELETE_WINDOW", self.on_closing)
         # self.janela.protocol("WM_DELETE_WINDOW", self.janela.quit())
 
-        self.janela.attributes("-topmost", True)
+        # self.janela.attributes("-topmost", True)
         self.janela.update()
 
         #########################
@@ -170,14 +166,12 @@ class Screen:
             command=self.iniciar,
         ).pack(side="left", padx=5)
 
-        self.btn_copiar = ctk.CTkButton(
+        ctk.CTkButton(
             frame_button,
-            text="Copiar",
+            text="Limpar Chat",
             font=("arial bold", 15),
-            command=self.copiar,
-            state="disabled",
-        )
-        self.btn_copiar.pack(side="left", padx=5)
+            command=self.limpar_chat,
+        ).pack(side="left", padx=5)
 
         self.btn_delete_context = ctk.CTkButton(
             frame_button,
