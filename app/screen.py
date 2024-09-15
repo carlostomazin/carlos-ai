@@ -91,8 +91,8 @@ class Screen:
         y = (screen_height - window_height) // 2
         self.janela.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
-        # self.janela.protocol("WM_DELETE_WINDOW", self.on_closing)
-        self.janela.protocol("WM_DELETE_WINDOW", self.janela.quit())
+        self.janela.protocol("WM_DELETE_WINDOW", self.on_closing)
+        # self.janela.protocol("WM_DELETE_WINDOW", self.janela.quit())
 
         self.janela.attributes("-topmost", True)
         self.janela.update()

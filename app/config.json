@@ -5,7 +5,7 @@
       "width": 800,
       "height": 600
     },
-    "icon_path": "assets/icon_chatbot.png",
+    "icon_path": "./app/assets/icon_chatbot.png",
     "msg_context": {
       "default": "Nenhum contexto selecionado",
       "selected": "Contexto selecionado",
@@ -19,7 +19,7 @@
   "llama_cpp": {
     "url": "http://127.0.0.1",
     "port": 8000,
-    "model_path": "../models/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
+    "model_path": "./models/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf",
     "chat_format": "llama-3"
   }
 }

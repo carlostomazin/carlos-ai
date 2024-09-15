@@ -1,7 +1,7 @@
 import json
 import subprocess
-import urllib.parse
 import time
+import urllib.parse
 
 import requests
 from loguru import logger as log
@@ -43,6 +43,7 @@ def check_server_running(label_title):
         text_color="green",
     )
     return True
+
 
 def kill_process_llama_cpp():
     port = LLAMA_PORT
